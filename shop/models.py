@@ -26,7 +26,17 @@ class Color(models.Model):
         return self.name
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class Image(models.Model):
+    product = models.ForeignKey(
+        'shop.Product', on_delete=models.CASCADE, related_name='images'
+    )
     image = models.ImageField(upload_to='images')
     base_url = models.URLField()
 
@@ -40,12 +50,19 @@ class Product(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     description = models.CharField(max_length=5000, default='')
     price = models.DecimalField(max_digits=10, decimal_places=2, default='')
-    discount = models.CharField(max_length=80, default='')
+    availability = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True)
 
-    image = models.OneToOneField(Image, null=True, on_delete=models.SET_NULL)
     categories = models.ManyToManyField(Category, related_name='products')
     sizes = models.ManyToManyField(Size, related_name='products')
-    colors = models.ManyToManyField(Color, related_name='products')
+    color = models.ForeignKey(
+        Color, related_name='products', on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
+    brand = models.ForeignKey(
+        Brand, related_name='products', on_delete=models.SET_NULL,
+        null=True, blank=True
+    )
 
     def __str__(self):
         return self.title

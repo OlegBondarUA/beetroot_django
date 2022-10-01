@@ -4,6 +4,8 @@ from queue import Queue
 
 import requests
 from bs4 import BeautifulSoup
+from django.conf import settings
+from django.db.transaction import atomic
 from django.utils.text import slugify
 
 from shop.models import Brand, Category, Color, Image, Product, Size
@@ -29,7 +31,10 @@ def upload_image_to_local_media(
         base_url=img_url
     )
 
+    del img_response
 
+
+@atomic
 def process(html_string: str, url: str):
     soup = BeautifulSoup(html_string, 'html.parser')
     try:
@@ -45,6 +50,7 @@ def process(html_string: str, url: str):
 
         title = soup.select('#product-title')
         price = soup.select('.price')
+        old_price = soup.select('.compare-at-price')
         availability = soup.select('meta[property="product:availability"]')
         description = soup.select('.description-section-description p')
 
@@ -54,6 +60,7 @@ def process(html_string: str, url: str):
                 'base_url': url,
                 'title': title,
                 'price': price[0].text.strip('$'),
+                'old_price': old_price[0].text.strip('$') if old_price else None,
                 'availability': True if availability[0].get('content') == 'instock' else False,
                 'description': '\n'.join([f'<p>{item.text}</p>' for item in description]),
                 'color': color,
@@ -61,16 +68,18 @@ def process(html_string: str, url: str):
             }
         )
 
-        sizes = soup.select('.product-form-size .ui-size')
-        sizes = {size.text.strip() for size in sizes}
+        sizes = soup.select('#size option')
+        sizes = {size.text.strip() for size in sizes[1:]}
         for size in sizes:
             s, _ = Size.objects.get_or_create(name=size)
             product.sizes.add(s)
 
         categories = soup.select('.product-header-top a')
-        categories = categories[0].get('href').split('/')[-1].split('-')
+        categories = categories[0].get('href').split('/')[-1].split('-', 1)
         for category in categories:
-            cat, _ = Category.objects.get_or_create(name=category, slug=category)
+            cat, _ = Category.objects.get_or_create(
+                slug=category, defaults={'name': category.replace('-', ' ')}
+            )
             product.categories.add(cat)
 
         images = soup.select('.product-photo-thumb-desktop img')
@@ -93,7 +102,7 @@ def process(html_string: str, url: str):
 
     except Exception as error:
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        print('Parsing Error', error, exc_tb.tb_lineno)
+        print('Parsing Error', error, exc_tb.tb_lineno, url)
 
 
 def worker(queue: Queue):
@@ -133,22 +142,15 @@ def worker(queue: Queue):
 
 
 def main():
-    category_urls = ['https://no6store.com/collections/clothing-sweaters']
-
-    with requests.Session() as links_session:
-        response = links_session.get(category_urls[0])
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-    # Getting product links
-    links = soup.select('#collection-grid a')
-    links = [link.get('href') for link in links]
+    with open(f'{settings.BASE_DIR}/links.txt') as file:
+        links = file.readlines()
 
     queue = Queue()
 
-    for url in links[1:6]:
-        queue.put(f'https://no6store.com{url}')
+    for url in links:
+        queue.put(url)
 
-    worker_number = 5
+    worker_number = 20
 
     with ThreadPoolExecutor(max_workers=worker_number) as executor:
         for _ in range(worker_number):

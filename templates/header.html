@@ -1,70 +1,4 @@
 <header class="header">
-    <div class="header-top">
-        <div class="container">
-            <div class="header-left d-none d-sm-block">
-                <p class="top-message text-uppercase">FREE Returns. Standard Shipping Orders $99+</p>
-            </div>
-            <!-- End .header-left -->
-
-            <div class="header-right header-dropdowns ml-0 ml-sm-auto w-sm-100">
-                <div class="header-dropdown dropdown-expanded d-none d-lg-block">
-                    <a href="demo4.html#">Links</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="dashboard.html">My Account</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="wishlist.html">My Wishlist</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="login.html" class="login-link">Log In</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <span class="separator"></span>
-
-                <div class="header-dropdown">
-                    <a href="demo4.html#"><i class="flag-us flag"></i>ENG</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="demo4.html#"><i class="flag-us flag mr-2"></i>ENG</a>
-                            </li>
-                            <li><a href="demo4.html#"><i class="flag-fr flag mr-2"></i>FRA</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
-                    <a href="demo4.html#">USD</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="demo4.html#">EUR</a></li>
-                            <li><a href="demo4.html#">USD</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
-                </div>
-                <!-- End .header-dropown -->
-
-                <span class="separator"></span>
-
-                <div class="social-icons">
-                    <a href="demo4.html#" class="social-icon social-facebook icon-facebook" target="_blank"></a>
-                    <a href="demo4.html#" class="social-icon social-twitter icon-twitter" target="_blank"></a>
-                    <a href="demo4.html#" class="social-icon social-instagram icon-instagram" target="_blank"></a>
-                </div>
-                <!-- End .social-icons -->
-            </div>
-            <!-- End .header-right -->
-        </div>
-        <!-- End .container -->
-    </div>
-    <!-- End .header-top -->
-
     <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
@@ -238,38 +172,14 @@
                         <a href="{% url 'index' %}">Home</a>
                     </li>
                     <li>
-                        <a href="category.html">Categories</a>
+                        <a>Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <a href="demo4.html#" class="nolink">VARIATION 1</a>
                                     <ul class="submenu">
-                                        <li><a href="category.html">Fullwidth Banner</a></li>
-                                        <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a>
-                                        </li>
-                                        <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a>
-                                        </li>
-                                        <li><a href="category.html">Left Sidebar</a></li>
-                                        <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
-                                        <li><a href="category-off-canvas.html">Off Canvas Filter</a></li>
-                                        <li><a href="category-horizontal-filter1.html">Horizontal Filter1</a>
-                                        </li>
-                                        <li><a href="category-horizontal-filter2.html">Horizontal Filter2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a href="demo4.html#" class="nolink">VARIATION 2</a>
-                                    <ul class="submenu">
-                                        <li><a href="category-list.html">List Types</a></li>
-                                        <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll</a>
-                                        </li>
-                                        <li><a href="category.html">3 Columns Products</a></li>
-                                        <li><a href="category-4col.html">4 Columns Products</a></li>
-                                        <li><a href="category-5col.html">5 Columns Products</a></li>
-                                        <li><a href="category-6col.html">6 Columns Products</a></li>
-                                        <li><a href="category-7col.html">7 Columns Products</a></li>
-                                        <li><a href="category-8col.html">8 Columns Products</a></li>
+                                        {% for category in categories %}
+                                            <li><a href="{% url 'catalogue' category.slug %}"></a>{{ category.name }}</li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                                 <div class="col-lg-4 p-0">

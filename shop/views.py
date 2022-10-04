@@ -1,13 +1,21 @@
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 
 from . models import Category, Product
 
 
 def index(request):
-    categories = Category.objects.all()[:10]
-    products = Product.objects.prefetch_related('images')[:4]
+    search_categories = Category.objects.annotate(
+        products_count=Count('products')
+    ).filter(
+        products_count__gte=5
+    ).order_by('-products_count')
+
+    products = Product.objects.prefetch_related('images', 'categories')[:4]
+
     context = {
-        'categories': categories,
+        'categories': search_categories[:10],
+        'search_categories': search_categories,
         'featured_products': products,
     }
 

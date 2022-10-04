@@ -27,21 +27,11 @@
                         </div>
 
                         <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
+                            {% for image in product.images.all %}
                             <div class="product-item">
-                                <img class="product-single-image" src="assets/images/products/zoom/product-1-big.jpg" data-zoom-image="assets/images/products/zoom/product-1-big.jpg" width="468" height="468" alt="product" />
+                                <img class="product-single-image" src="{{ image.image.url }}" data-zoom-image="{{ image.image.url }}" width="468" height="468" alt="{{ product.title }}" />
                             </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="assets/images/products/zoom/product-2-big.jpg" data-zoom-image="assets/images/products/zoom/product-2-big.jpg" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="assets/images/products/zoom/product-3-big.jpg" data-zoom-image="assets/images/products/zoom/product-3-big.jpg" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="assets/images/products/zoom/product-4-big.jpg" data-zoom-image="assets/images/products/zoom/product-4-big.jpg" width="468" height="468" alt="product" />
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="assets/images/products/zoom/product-5-big.jpg" data-zoom-image="assets/images/products/zoom/product-5-big.jpg" width="468" height="468" alt="product" />
-                            </div>
+                            {% endfor %}
                         </div>
                         <!-- End .product-single-carousel -->
                         <span class="prod-full-screen">
@@ -50,61 +40,17 @@
                     </div>
 
                     <div class="prod-thumbnail owl-dots">
+                        {% for image in product.images.all %}
                         <div class="owl-dot">
-                            <img src="assets/images/products/zoom/product-1.jpg" width="110" height="110" alt="product-thumbnail" />
+                            <img src="{{ image.image.url }}" width="110" height="110" alt="{{ product.title}} thumbnail" />
                         </div>
-                        <div class="owl-dot">
-                            <img src="assets/images/products/zoom/product-2.jpg" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="assets/images/products/zoom/product-3.jpg" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="assets/images/products/zoom/product-4.jpg" width="110" height="110" alt="product-thumbnail" />
-                        </div>
-                        <div class="owl-dot">
-                            <img src="assets/images/products/zoom/product-5.jpg" width="110" height="110" alt="product-thumbnail" />
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <!-- End .product-single-gallery -->
 
                 <div class="col-lg-7 col-md-6 product-single-details">
-                    <h1 class="product-title">Men Black Sports Shoes</h1>
-
-                    <div class="product-nav">
-                        <div class="product-prev">
-                            <a href="product.html#">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                    <span class="box-content">
-                                        <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-3.jpg"
-                                            style="padding-top: 0px;">
-
-                                        <span>Circled Ultimate 3D Speaker</span>
-                                </span>
-                                </span>
-                            </a>
-                        </div>
-
-                        <div class="product-next">
-                            <a href="product.html#">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                    <span class="box-content">
-                                        <img alt="product" width="150" height="150"
-                                            src="assets/images/products/product-4.jpg"
-                                            style="padding-top: 0px;">
-
-                                        <span>Blue Backpack for the Young</span>
-                                </span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
+                    <h1 class="product-title">{{ product.title }}</h1>
 
                     <div class="ratings-container">
                         <div class="product-ratings">
@@ -121,32 +67,22 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="old-price">$1,999.00</span>
-                        <span class="new-price">$1,699.00</span>
+                        <span class="old-price">{{ product.old_price|default_if_none:""}}</span>
+                        <span class="new-price">${{ product.price }}</span>
                     </div>
                     <!-- End .price-box -->
 
                     <div class="product-desc">
-                        <p>
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-                            placerat eleifend leo.
-                        </p>
+                        {{ product.description|safe }}
                     </div>
                     <!-- End .product-desc -->
 
                     <ul class="single-info-list">
 
                         <li>
-                            SKU: <strong>654613612</strong>
-                        </li>
-
-                        <li>
-                            CATEGORY: <strong><a href="product.html#" class="product-category">SHOES</a></strong>
-                        </li>
-
-                        <li>
-                            TAGs: <strong><a href="product.html#" class="product-category">CLOTHES</a></strong>,
-                            <strong><a href="product.html#" class="product-category">SWEATER</a></strong>
+                            CATEGORIES: {% for category in product.categories.all %}
+                            <strong><a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name|upper}}{% if forloop.last %} {% else %}, {% endif %}</a></strong>
+                            {% endfor %}
                         </li>
                     </ul>
 
@@ -212,17 +148,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
                     <div class="product-desc-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud ipsum consectetur sed do, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p>
-                        <ul>
-                            <li>Any Product types that You want - Simple, Configurable
-                            </li>
-                            <li>Downloadable/Digital Products, Virtual Products
-                            </li>
-                            <li>Inventory Management with Backordered items
-                            </li>
-                        </ul>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        {{ product.description|safe }}
                     </div>
                     <!-- End .product-desc-content -->
                 </div>

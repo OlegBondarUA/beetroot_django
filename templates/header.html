@@ -19,23 +19,9 @@
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
-                                    <option value="">All Categories</option>
-                                    <option value="4">Fashion</option>
-                                    <option value="12">- Women</option>
-                                    <option value="13">- Men</option>
-                                    <option value="66">- Jewellery</option>
-                                    <option value="67">- Kids Fashion</option>
-                                    <option value="5">Electronics</option>
-                                    <option value="21">- Smart TVs</option>
-                                    <option value="22">- Cameras</option>
-                                    <option value="63">- Games</option>
-                                    <option value="7">Home &amp; Garden</option>
-                                    <option value="11">Motors</option>
-                                    <option value="31">- Cars and Trucks</option>
-                                    <option value="32">- Motorcycles &amp; Powersports</option>
-                                    <option value="33">- Parts &amp; Accessories</option>
-                                    <option value="34">- Boats</option>
-                                    <option value="57">- Auto Tools &amp; Supplies</option>
+                                    {% for category in search_categories %}
+                                    <option value="">{{ category.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -45,11 +31,6 @@
                     </form>
                 </div>
                 <!-- End .header-search -->
-
-                <div class="header-contact d-none d-lg-flex pl-4 pr-4">
-                    <img alt="phone" src="assets/images/phone.png" width="30" height="30" class="pb-1">
-                    <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
-                </div>
 
                 <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
@@ -168,11 +149,11 @@
         <div class="container">
             <nav class="main-nav w-100">
                 <ul class="menu">
-                    <li class="active">
+                    <li>
                         <a href="{% url 'index' %}">Home</a>
                     </li>
                     <li>
-                        <a>Categories</a>
+                        <a href="javascript:void(0)">Categories</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-4">
@@ -202,82 +183,7 @@
                         <!-- End .megamenu -->
                     </li>
                     <li>
-                        <a href="product.html">Products</a>
-                        <div class="megamenu megamenu-fixed-width">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <a href="demo4.html#" class="nolink">PRODUCT PAGES</a>
-                                    <ul class="submenu">
-                                        <li><a href="product.html">SIMPLE PRODUCT</a></li>
-                                        <li><a href="product-variable.html">VARIABLE PRODUCT</a></li>
-                                        <li><a href="product.html">SALE PRODUCT</a></li>
-                                        <li><a href="product.html">FEATURED & ON SALE</a></li>
-                                        <li><a href="product-custom-tab.html">WITH CUSTOM TAB</a></li>
-                                        <li><a href="product-sidebar-left.html">WITH LEFT SIDEBAR</a></li>
-                                        <li><a href="product-sidebar-right.html">WITH RIGHT SIDEBAR</a></li>
-                                        <li><a href="product-addcart-sticky.html">ADD CART STICKY</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End .col-lg-4 -->
-
-                                <div class="col-lg-4">
-                                    <a href="demo4.html#" class="nolink">PRODUCT LAYOUTS</a>
-                                    <ul class="submenu">
-                                        <li><a href="product-extended-layout.html">EXTENDED LAYOUT</a></li>
-                                        <li><a href="product-grid-layout.html">GRID IMAGE</a></li>
-                                        <li><a href="product-full-width.html">FULL WIDTH LAYOUT</a></li>
-                                        <li><a href="product-sticky-info.html">STICKY INFO</a></li>
-                                        <li><a href="product-sticky-both.html">LEFT & RIGHT STICKY</a></li>
-                                        <li><a href="product-transparent-image.html">TRANSPARENT IMAGE</a></li>
-                                        <li><a href="product-center-vertical.html">CENTER VERTICAL</a></li>
-                                        <li><a href="demo4.html#">BUILD YOUR OWN</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End .col-lg-4 -->
-
-                                <div class="col-lg-4 p-0">
-                                    <div class="menu-banner menu-banner-2">
-                                        <figure>
-                                            <img src="static/images/menu-banner-1.jpg" width="182" height="317" alt="Menu banner" class="product-promo">
-                                        </figure>
-                                        <i>OFF</i>
-                                        <div class="banner-content">
-                                            <h4>
-                                                <span class="">UP TO</span><br />
-                                                <b class="">50%</b>
-                                            </h4>
-                                        </div>
-                                        <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                    </div>
-                                </div>
-                                <!-- End .col-lg-4 -->
-                            </div>
-                            <!-- End .row -->
-                        </div>
-                        <!-- End .megamenu -->
-                    </li>
-                    <li>
-                        <a href="demo4.html#">Pages</a>
-                        <ul>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="cart.html">Shopping Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="demo4.html#">Blog</a>
-                                <ul>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single.html">Blog Post</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="forgot-password.html">Forgot Password</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li>
-                        <a href="demo4.html#">Elements</a>
+                        <a href="demo4.html#">Blog</a>
                         <ul class="custom-scrollbar">
                             <li><a href="element-accordions.html">Accordion</a></li>
                             <li><a href="element-alerts.html">Alerts</a></li>
@@ -298,7 +204,6 @@
                         </ul>
                     </li>
                     <li><a href="contact.html">Contact Us</a></li>
-                    <li class="float-right"><a href="https://1.envato.market/DdLk5" rel="noopener" class="pl-5" target="_blank">Buy Porto!</a></li>
                     <li class="float-right"><a href="demo4.html#" class="pl-5">Special Offer!</a></li>
                 </ul>
             </nav>

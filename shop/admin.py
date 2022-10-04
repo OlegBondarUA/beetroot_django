@@ -82,7 +82,7 @@ class ColorAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'total_products')
+    list_display = ('name', 'picture', 'total_products')
     search_fields = ('name',)
 
     def get_queryset(self, request):
@@ -94,6 +94,13 @@ class CategoryAdmin(admin.ModelAdmin):
         count = obj.products.count()
         link = f'/admin/shop/product/?categories__id__exact={obj.id}'
         return format_html(f'<a href="{link}">{count} products</a>')
+
+    @staticmethod
+    def picture(obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="max-width: 50px">', obj.image.url
+            )
 
 
 class SizeAdmin(admin.ModelAdmin):

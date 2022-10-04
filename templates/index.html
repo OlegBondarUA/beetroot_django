@@ -57,7 +57,7 @@
                     <figure>
                         <a href="{% url 'product' product.slug %}">
                             <img src="{{ product.images.all.0.image.url }}" width="280" height="280" alt="{{ product.name }}">
-                            <img src="{{ product.images.all.1.image.url }}" width="280" height="280" alt="product">
+                            <img src="{{ product.images.all.1.image.url }}" width="280" height="280" alt="{{ product.name }}">
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -66,7 +66,9 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            {% for category in product.categories.all %}<a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>{% endfor %}
+                            {% for category in product.categories.all %}
+                            <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>
+                            {% endfor %}
                         </div>
                         <h3 class="product-title">
                             <a href="{% url 'product' product.slug %}">{{ product.title }}</a>

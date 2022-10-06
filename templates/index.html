@@ -75,8 +75,8 @@
                         </h3>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">{{ product.old_price }}</del>
-                            <span class="product-price">{{ product.price }}</span>
+                            <del class="old-price">{{ product.old_price|default_if_none:"" }}</del>
+                            <span class="product-price">${{ product.price }}</span>
                         </div>
                     </div>
                 </div>
@@ -102,11 +102,14 @@
                     }
                 }
             }">
+                {% for product in new_arrivals %}
                 <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                     <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-6.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-6-2.jpg" width="220" height="220" alt="product">
+                        <a href="{% url 'product' product.slug %}">
+                            <img src="{{ product.images.first.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            {% if product.images.all.1 %}
+                            <img src="{{ product.images.all.1.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            {% endif %}
                         </a>
                         <div class="label-group">
                             <div class="product-label label-hot">HOT</div>
@@ -114,23 +117,17 @@
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
+                            {% for category in product.categories.all %}
+                            <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>
+                            {% endfor %}
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">Men Black Gentle Belt</a>
+                            <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
                         </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
+                            <del class="old-price">{{ product.old_price|default_if_none:"" }}</del>
+                            <span class="product-price">${{ product.price }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -144,218 +141,7 @@
                     </div>
                     <!-- End .product-details -->
                 </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-7.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-7-2.jpg" width="220" height="220" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Brown-Black Men Casual Glasses</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="demo4.html#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-8.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-8-2.jpg" width="220" height="220" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Brown-Black Men Casual Glasses</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="demo4.html#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-9.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-9-2.jpg" width="220" height="220" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-sale">-30%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Black Men Casual Glasses</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-10.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-10-2.jpg" width="220" height="220" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Basketball Sports Blue Shoes</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="demo4.html#" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-                <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
-                    <figure>
-                        <a href="product.html">
-                            <img src="static/images/products/product-11.jpg" width="220" height="220" alt="product">
-                            <img src="static/images/products/product-11-2.jpg" width="220" height="220" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Men Sports Travel Bag</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
+                {% endfor %}
             </div>
             <!-- End .featured-proucts -->
 
@@ -372,82 +158,24 @@
                     </div>
                 </div>
             </div>
-
             <h2 class="section-title categories-section-title heading-border border-0 ls-0 appear-animate" data-animation-delay="100" data-animation-name="fadeInUpShorter">Browse Our Categories
             </h2>
-
             <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
+                {% for category in search_categories %}
+                {% if category.image %}
                 <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
+                    <a href="{% url 'catalogue' category.slug %}">
                         <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-1.jpg" alt="category" width="280" height="240" />
+                            <img src="{{ category.image.url }}" alt="category" width="280" height="240" />
                         </figure>
                         <div class="category-content">
-                            <h3>Dress</h3>
-                            <span><mark class="count">3</mark> products</span>
+                            <h3>{{ category.name }}</h3>
+                            <span><mark class="count">{{ category.products.count }}</mark> products</span>
                         </div>
                     </a>
                 </div>
-
-                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
-                        <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-2.jpg" alt="category" width="220" height="220" />
-                        </figure>
-                        <div class="category-content">
-                            <h3>Watches</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
-                        <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-3.jpg" alt="category" width="220" height="220" />
-                        </figure>
-                        <div class="category-content">
-                            <h3>Machine</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
-                        <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-4.jpg" alt="category" width="220" height="220" />
-                        </figure>
-                        <div class="category-content">
-                            <h3>Sofa</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
-                        <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-6.jpg" alt="category" width="220" height="220" />
-                        </figure>
-                        <div class="category-content">
-                            <h3>Headphone</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                    <a href="category.html">
-                        <figure>
-                            <img src="static/images/demoes/demo4/products/categories/category-5.jpg" alt="category" width="220" height="220" />
-                        </figure>
-                        <div class="category-content">
-                            <h3>Sports</h3>
-                            <span><mark class="count">3</mark> products</span>
-                        </div>
-                    </a>
-                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </section>

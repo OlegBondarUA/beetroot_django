@@ -1,10 +1,12 @@
 from django.urls import path
 
-from . views import index, catalogue, product
+from . import views
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('catalogue/', catalogue, name='catalogue'),
-    path('catalogue/<slug:slug>/', catalogue, name='catalogue'),
-    path('product/<slug:slug>/', product, name='product'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('catalogue/', views.catalogue, name='catalogue'),
+    path('catalogue/<slug:slug>/', views.catalogue, name='catalogue'),
+    path('product/<slug:slug>/', views.product, name='product'),
+    path('contact-us/', views.contact, name='contact'),
+    path('info/', views.info_page, name='info'),
 ]

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block main %}
+{% load percent %}
 <main class="main">
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -358,23 +359,30 @@
             <h2 class="section-title">Related Products</h2>
 
             <div class="products-slider owl-carousel owl-theme dots-top dots-small">
+                {% for product in related_products %}
                 <div class="product-default">
                     <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-1.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-1-2.jpg" width="280" height="280" alt="product">
+                        <a href="{% url 'product' product.slug %}">
+                            <img src="{{ product.images.first.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            {% if product.images.all.1 %}
+                            <img src="{{ product.images.all.1.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            {% endif %}
                         </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
+                        {% if product.old_price %}
+                            <div class="label-group">
+                                <div class="product-label label-hot">HOT</div>
+                                <div class="product-label label-sale">-{% discount_rate product.old_price product.price %}%</div>
+                            </div>
+                        {% endif %}
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
+                            {% for category in product.categories.all %}
+                            <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>
+                            {% endfor %}
                         </div>
                         <h3 class="product-title">
-                            <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                            <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -386,8 +394,8 @@
                         </div>
                         <!-- End .product-container -->
                         <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
+                            <del class="old-price">{{ product.old_price|add_dollar:"$"|default_if_none:"" }}</del>
+                            <span class="product-price">${{ product.price }}</span>
                         </div>
                         <!-- End .price-box -->
                         <div class="product-action">
@@ -402,186 +410,8 @@
                     </div>
                     <!-- End .product-details -->
                 </div>
+                {% endfor %}
 
-                <div class="product-default">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-3.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-3-2.jpg" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Circled Ultimate 3D Speaker</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-
-                <div class="product-default">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-7.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-7-2.jpg" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Brown-Black Men Casual Glasses</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-
-                <div class="product-default">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-6.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-6-2.jpg" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Men Black Gentle Belt</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
-
-                <div class="product-default">
-                    <figure>
-                        <a href="product.html">
-                            <img src="assets/images/products/product-4.jpg" width="280" height="280" alt="product">
-                            <img src="assets/images/products/product-4-2.jpg" width="280" height="280" alt="product">
-                        </a>
-                        <div class="label-group">
-                            <div class="product-label label-hot">HOT</div>
-                            <div class="product-label label-sale">-20%</div>
-                        </div>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-list">
-                            <a href="category.html" class="product-category">Category</a>
-                        </div>
-                        <h3 class="product-title">
-                            <a href="product.html">Blue Backpack for the Young - S</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:80%"></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div>
-                            <!-- End .product-ratings -->
-                        </div>
-                        <!-- End .product-container -->
-                        <div class="price-box">
-                            <del class="old-price">$59.00</del>
-                            <span class="product-price">$49.00</span>
-                        </div>
-                        <!-- End .price-box -->
-                        <div class="product-action">
-                            <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
-                                    class="icon-heart"></i></a>
-                            <a href="product.html" class="btn-icon btn-add-cart"><i
-                                    class="fa fa-arrow-right"></i><span>SELECT
-                                    OPTIONS</span></a>
-                            <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                    class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- End .product-details -->
-                </div>
             </div>
             <!-- End .products-slider -->
         </div>

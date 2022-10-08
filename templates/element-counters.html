@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% block main %}
+{% load static %}
+<main class="main">
+	<div class="category-banner-container bg-gray">
+		<div class="category-banner banner text-uppercase"
+			style="background: no-repeat 60%/cover url({% static 'images/elements/page-header.jpg' %});">
+			<div class="container position-relative">
+				<nav aria-label="breadcrumb" class="breadcrumb-nav text-white">
+					<ol class="breadcrumb justify-content-center">
+						<li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Counters</li>
+					</ol>
+				</nav>
+				<h1 class="page-title text-center text-white">Counters</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<section class="default-section mt-5">
+			<h3>Default</h3>
+			<div class="row text-center">
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="19000"
+						data-duration="3000" data-delimiter="," data-append="+">0</h3>
+					<p style="font-size: 2rem;">Happy Clients</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="15"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Years in Business</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="352"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Cups of Coffee</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="178"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">High Score</p>
+				</div>
+			</div>
+		</section>
+		<hr class="divider">
+		<section class="size-section mt-5">
+			<h3>Sizes</h3>
+			<div class="row text-center">
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 3.5rem;" data-fromvalue="0" data-tovalue="19000"
+						data-duration="3000" data-delimiter="," data-append="+">0</h3>
+					<p style="font-size: 1.5rem;">Happy Clients</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 3.5rem;" data-fromvalue="0" data-tovalue="15"
+						data-duration="3000">0</h3>
+					<p style="font-size: 1.5rem;">Years in Business</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 3.5rem;" data-fromvalue="0" data-tovalue="352"
+						data-duration="3000">0</h3>
+					<p style="font-size: 1.5rem;">Cups of Coffee</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 3.5rem;" data-fromvalue="0" data-tovalue="178"
+						data-duration="3000">0</h3>
+					<p style="font-size: 1.5rem;">High Score</p>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="19000"
+						data-duration="3000" data-delimiter="," data-append="+">0</h3>
+					<p style="font-size: 2rem;">Happy Clients</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="15"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Years in Business</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="352"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Cups of Coffee</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="178"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">High Score</p>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 6rem;" data-fromvalue="0" data-tovalue="19000"
+						data-duration="3000" data-delimiter="," data-append="+">0</h3>
+					<p style="font-size: 2.5rem;">Happy Clients</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 6rem;" data-fromvalue="0" data-tovalue="15"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2.5rem;">Years in Business</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 6rem;" data-fromvalue="0" data-tovalue="352"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2.5rem;">Cups of Coffee</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to mb-0" style="font-size: 6rem;" data-fromvalue="0" data-tovalue="178"
+						data-duration="3000">0</h3>
+					<p style="font-size: 2.5rem;">High Score</p>
+				</div>
+			</div>
+		</section>
+		<hr class="divider">
+	</div>
+	<section class="color-section mt-5">
+		<div class="container">
+			<h3>Colors</h3>
+			<div class="row text-center">
+				<div class="col-md-3">
+					<h3 class="count-to text-primary mb-0" style="font-size: 5rem;" data-fromvalue="0"
+						data-tovalue="19000" data-duration="3000" data-delimiter="," data-append="+">0</h3>
+					<p style="font-size: 2rem;">Happy Clients</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to text-secondary mb-0" style="font-size: 5rem;" data-fromvalue="0"
+						data-tovalue="15" data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Years in Business</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to text-info mb-0" style="font-size: 5rem;" data-fromvalue="0"
+						data-tovalue="352" data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">Cups of Coffee</p>
+				</div>
+				<div class="col-md-3">
+					<h3 class="count-to text-dark mb-0" style="font-size: 5rem;" data-fromvalue="0"
+						data-tovalue="178" data-duration="3000">0</h3>
+					<p style="font-size: 2rem;">High Score</p>
+				</div>
+			</div>
+		</div>
+		<div style="background-color: #f4f4f4; border-top: 5px solid #f1f1f1;">
+			<div class="container pt-5 pb-5">
+				<div class="row text-center">
+					<div class="col-md-3">
+						<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="19000" data-duration="3000" data-delimiter="," data-append="+">0</h3>
+						<p style="font-size: 2rem;">Happy Clients</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="15"
+							data-duration="3000">0</h3>
+						<p style="font-size: 2rem;">Years in Business</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="352"
+							data-duration="3000">0</h3>
+						<p style="font-size: 2rem;">Cups of Coffee</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to mb-0" style="font-size: 5rem;" data-fromvalue="0" data-tovalue="178"
+							data-duration="3000">0</h3>
+						<p style="font-size: 2rem;">High Score</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="background-color: #0088cc; border-top: 5px solid #0077b3;">
+			<div class="container pt-5 pb-5">
+				<div class="row text-center">
+					<div class="col-md-3">
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="19000" data-duration="3000" data-delimiter="," data-append="+">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Happy Clients</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="15" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Years in Business</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="352" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Cups of Coffee</p>
+					</div>
+					<div class="col-md-3">
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="178" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">High Score</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container mt-5">
+			<h3>Parallax</h3>
+		</div>
+		<div data-parallax="{'speed': 2, 'enableOnMobile': true}"
+			data-image-src="assets/images/elements/counter/parallax.jpg" style="background-color: #efefef;">
+			<div class="container pt-5 pb-5">
+				<div class="row text-center">
+					<div class="col-md-3">
+						<i class="fa fa-user text-white" style="font-size: 3.5rem;"></i>
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="19000" data-duration="3000" data-delimiter="," data-append="+">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Happy Clients</p>
+					</div>
+					<div class="col-md-3">
+						<i class="fa fa-star text-white" style="font-size: 3.5rem;"></i>
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="15" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Years in Business</p>
+					</div>
+					<div class="col-md-3">
+						<i class="fa fa-coffee text-white" style="font-size: 3.5rem;"></i>
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="352" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">Cups of Coffee</p>
+					</div>
+					<div class="col-md-3">
+						<i class="far fa-chart-bar text-white" style="font-size: 3.5rem;"></i>
+						<h3 class="count-to text-white mb-0" style="font-size: 5rem;" data-fromvalue="0"
+							data-tovalue="178" data-duration="3000">0</h3>
+						<p class="text-white" style="font-size: 2rem;">High Score</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</main><!-- End .main -->
+{% endblock main %}

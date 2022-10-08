@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load percent %}
 {% block main %}
+{% load static %}
 <main class="main">
     <div class="category-banner-container bg-gray">
-        <div class="category-banner banner text-uppercase" style="background: no-repeat 60%/cover url('assets/images/banners/banner-top.jpg');">
+        <div class="category-banner banner text-uppercase" style="background: no-repeat 60%/cover url({% static 'images/banners/banner-top.jpg' %});">
             <div class="container position-relative">
                 <div class="row">
                     <div class="pl-lg-5 pb-5 pb-md-0 col-sm-5 col-xl-4 col-lg-4 offset-1">
                         <h3>Electronic<br>Deals</h3>
-                        <a href="category.html" class="btn btn-dark">Get Yours!</a>
+                        <a href="javascript:void(0)" class="btn btn-dark">Get Yours!</a>
                     </div>
                     <div class="pl-lg-3 col-sm-4 offset-sm-0 offset-1 pt-3">
                         <div class="coupon-sale-content">
@@ -23,19 +24,11 @@
     </div>
 
     <div class="container">
-        <nav aria-label="breadcrumb" class="breadcrumb-nav">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="category.html#">Men</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Accessories</li>
-            </ol>
-        </nav>
-
         <div class="row">
             <div class="col-lg-9 main-content">
                 <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
                     <div class="toolbox-left">
-                        <a href="category.html#" class="sidebar-toggle">
+                        <a href="javascript:void(0)" class="sidebar-toggle">
                             <svg data-name="Layer 3" id="Layer_3" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="15" x2="26" y1="9" y2="9" class="cls-1"></line>
                                 <line x1="6" x2="9" y1="9" y2="9" class="cls-1"></line>
@@ -57,13 +50,9 @@
 
                         <div class="toolbox-item toolbox-sort">
                             <label>Sort By:</label>
-
                             <div class="select-custom">
                                 <select name="orderby" class="form-control">
                                     <option value="menu_order" selected="selected">Default sorting</option>
-                                    <option value="popularity">Sort by popularity</option>
-                                    <option value="rating">Sort by average rating</option>
-                                    <option value="date">Sort by newness</option>
                                     <option value="price">Sort by price: low to high</option>
                                     <option value="price-desc">Sort by price: high to low</option>
                                 </select>
@@ -79,7 +68,6 @@
                     <div class="toolbox-right">
                         <div class="toolbox-item toolbox-show">
                             <label>Show:</label>
-
                             <div class="select-custom">
                                 <select name="count" class="form-control">
                                     <option value="12">12</option>
@@ -90,16 +78,6 @@
                             <!-- End .select-custom -->
                         </div>
                         <!-- End .toolbox-item -->
-
-                        <div class="toolbox-item layout-modes">
-                            <a href="category.html" class="layout-btn btn-grid active" title="Grid">
-                                <i class="icon-mode-grid"></i>
-                            </a>
-                            <a href="category-list.html" class="layout-btn btn-list" title="List">
-                                <i class="icon-mode-list"></i>
-                            </a>
-                        </div>
-                        <!-- End .layout-modes -->
                     </div>
                     <!-- End .toolbox-right -->
                 </nav>
@@ -136,7 +114,7 @@
                                 <!-- End .product-container -->
 
                                 <div class="price-box">
-                                    <span class="old-price">{{ product.old_price|default_if_none:"" }}</span>
+                                    <span class="old-price">{{ product.old_price|add_dollar:"$"|default_if_none:"" }}</span>
                                     <span class="product-price">${{ product.price }}</span>
                                 </div>
                                 <!-- End .price-box -->
@@ -174,16 +152,16 @@
 
                     <ul class="pagination toolbox-item">
                         <li class="page-item disabled">
-                            <a class="page-link page-link-btn" href="category.html#"><i class="icon-angle-left"></i></a>
+                            <a class="page-link page-link-btn" href="javascript:void(0)"><i class="icon-angle-left"></i></a>
                         </li>
                         <li class="page-item active">
-                            <a class="page-link" href="category.html#">1 <span class="sr-only">(current)</span></a>
+                            <a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="category.html#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="category.html#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
                         <li class="page-item"><span class="page-link">...</span></li>
                         <li class="page-item">
-                            <a class="page-link page-link-btn" href="category.html#"><i class="icon-angle-right"></i></a>
+                            <a class="page-link page-link-btn" href="javascript:void(0)"><i class="icon-angle-right"></i></a>
                         </li>
                     </ul>
                 </nav>
@@ -195,60 +173,20 @@
                 <div class="sidebar-wrapper">
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="category.html#widget-body-2" role="button" aria-expanded="true" aria-controls="widget-body-2">Categories</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-2">Categories</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-2">
                             <div class="widget-body">
                                 <ul class="cat-list">
+                                    {% for category in search_categories %}
                                     <li>
-                                        <a href="category.html#widget-category-1" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="widget-category-1">
-                                            Accessories<span class="products-count">(3)</span>
+                                        <a href="{% url 'catalogue' category.slug %}">
+                                            {{ category.name }}<span class="products-count">({{ category.products_count }})</span>
                                             <span class="toggle"></span>
                                         </a>
-                                        <div class="collapse show" id="widget-category-1">
-                                            <ul class="cat-sublist">
-                                                <li>Caps<span class="products-count">(1)</span></li>
-                                                <li>Watches<span class="products-count">(2)</span></li>
-                                            </ul>
-                                        </div>
                                     </li>
-                                    <li>
-                                        <a href="category.html#widget-category-2" class="collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="widget-category-2">
-                                            Dress<span class="products-count">(4)</span>
-                                            <span class="toggle"></span>
-                                        </a>
-                                        <div class="collapse" id="widget-category-2">
-                                            <ul class="cat-sublist">
-                                                <li>Clothing<span class="products-count">(4)</span></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="category.html#widget-category-3" class="collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="widget-category-3">
-                                            Electronics<span class="products-count">(2)</span>
-                                            <span class="toggle"></span>
-                                        </a>
-                                        <div class="collapse" id="widget-category-3">
-                                            <ul class="cat-sublist">
-                                                <li>Headphone<span class="products-count">(1)</span></li>
-                                                <li>Watch<span class="products-count">(1)</span></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="category.html#widget-category-4" class="collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="widget-category-4">
-                                            Fashion<span class="products-count">(6)</span>
-                                            <span class="toggle"></span>
-                                        </a>
-                                        <div class="collapse" id="widget-category-4">
-                                            <ul class="cat-sublist">
-                                                <li>Shoes<span class="products-count">(4)</span></li>
-                                                <li>Bag<span class="products-count">(2)</span></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="category.html#">Music<span class="products-count">(2)</span></a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <!-- End .widget-body -->
@@ -256,28 +194,17 @@
                         <!-- End .collapse -->
                     </div>
                     <!-- End .widget -->
-
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="category.html#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Price</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-3">Price</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-3">
                             <div class="widget-body pb-0">
-                                <form action="category.html#">
+                                <form action="javascript:void(0)">
                                     <div class="price-slider-wrapper">
-                                        <div id="price-slider"></div>
-                                        <!-- End #price-slider -->
-                                    </div>
-                                    <!-- End .price-slider-wrapper -->
-
-                                    <div class="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="filter-price-text">
-                                            Price:
-                                            <span id="filter-price-range"></span>
-                                        </div>
-                                        <!-- End .filter-price-text -->
-
+                                        <input type="range" id="price" name="price" min="{{ min_price }}" max="{{ max_price|floatformat:0}}" oninput="this.nextElementSibling.value = this.value">
+                                        <output>{{ average_price|floatformat:0}}</output>
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                     </div>
                                     <!-- End .filter-price-action -->
@@ -291,7 +218,7 @@
 
                     <div class="widget widget-color">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="category.html#widget-body-4" role="button" aria-expanded="true" aria-controls="widget-body-4">Color</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-4">Color</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-4">
@@ -299,7 +226,7 @@
                                 <ul class="config-swatch-list">
                                     {% for product in products %}
                                     <li class="active">
-                                        <a href="category.html#" style="background-color: {{ product.color.name }};"></a>
+                                        <a href="javascript:void(0)" style="background-color: {{ product.color.name }};"></a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -312,14 +239,14 @@
 
                     <div class="widget widget-size">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="category.html#widget-body-5" role="button" aria-expanded="true" aria-controls="widget-body-5">Sizes</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-5">Sizes</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-5">
                             <div class="widget-body pb-0">
                                 <ul class="config-size-list">
                                     {% for size in sizes %}
-                                    <li class="active"><a href="category.html#">{{ size.name }}</a></li>
+                                    <li class="active"><a href="javascript:void(0)">{{ size.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -501,13 +428,6 @@
                             <!-- End .widget-featured-slider -->
                         </div>
                         <!-- End .widget-body -->
-                    </div>
-                    <!-- End .widget -->
-
-                    <div class="widget widget-block">
-                        <h3 class="widget-title">Custom HTML Block</h3>
-                        <h5>This is a custom sub-title.</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus </p>
                     </div>
                     <!-- End .widget -->
                 </div>

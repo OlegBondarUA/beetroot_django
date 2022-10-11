@@ -215,7 +215,7 @@
                     {% for product in featured_products|slice:":3" %}
                     <div class="product-default left-details product-widget">
                         <figure>
-                            <a href="% url 'product' product.slug %}">
+                            <a href="{% url 'product' product.slug %}">
                                 <img src="{{ product.images.all.0.image.url }}" width="84" height="84" alt="product">
                                 {% if product.images.all.1 %}
                                 <img src="{{ product.images.all.1.image.url }}" width="84" height="84" alt="product">

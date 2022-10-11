@@ -1,14 +1,13 @@
-from django.db.models import Count
-
-from .models import Category
+from .selectors import categories_selector, random_products_selector
 
 
 def categories_menu(request):
-    categories = Category.objects.prefetch_related(
-        'products'
-    ).annotate(
-        products_count=Count('products')
-    ).order_by('-products_count')
     return {
-        'search_categories': categories
+        'search_categories': categories_selector()
+    }
+
+
+def featured_products(request):
+    return {
+        'featured_products': random_products_selector()
     }

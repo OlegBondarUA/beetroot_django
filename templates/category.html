@@ -149,21 +149,7 @@
                         <!-- End .select-custom -->
                     </div>
                     <!-- End .toolbox-item -->
-
-                    <ul class="pagination toolbox-item">
-                        <li class="page-item disabled">
-                            <a class="page-link page-link-btn" href="javascript:void(0)"><i class="icon-angle-left"></i></a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                        <li class="page-item"><span class="page-link">...</span></li>
-                        <li class="page-item">
-                            <a class="page-link page-link-btn" href="javascript:void(0)"><i class="icon-angle-right"></i></a>
-                        </li>
-                    </ul>
+                    {% include 'pagination.html' %}
                 </nav>
             </div>
             <!-- End .col-lg-9 -->
@@ -226,7 +212,7 @@
                                 <ul class="config-swatch-list">
                                     {% for product in products %}
                                     <li class="active">
-                                        <a href="javascript:void(0)" style="background-color: {{ product.color.name }};"></a>
+                                        <a href="{{request.path}}?color={{ product.color.name }}" style="background-color: {{ product.color.name }};"></a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -246,7 +232,7 @@
                             <div class="widget-body pb-0">
                                 <ul class="config-size-list">
                                     {% for size in sizes %}
-                                    <li class="active"><a href="javascript:void(0)">{{ size.name }}</a></li>
+                                    <li class="active"><a href="{{request.path}}?size={{ size.name }}">{{ size.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -262,16 +248,18 @@
                         <div class="widget-body">
                             <div class="owl-carousel widget-featured-products">
                                 <div class="featured-col">
+                                    {% for product in featured_products %}
                                     <div class="product-default left-details product-widget">
                                         <figure>
-                                            <a href="product.html">
-                                                <img src="static/images/products/small/product-4.jpg" width="75" height="75" alt="product" />
-                                                <img src="static/images/products/small/product-4-2.jpg" width="75" height="75" alt="product" />
+                                            <a href="{% url 'product' product.slug %}">
+                                                <img src="{{ product.images.all.0.image.url }}" width="75" height="75" alt="{{ product.title }}" />
+                                                {% if product.images.all.1.image %}
+                                                <img src="{{ product.images.all.1.image.url }}" width="75" height="75" alt="{{ product.title }}" />
+                                                {% endif %}
                                             </a>
                                         </figure>
                                         <div class="product-details">
-                                            <h3 class="product-title"> <a href="product.html">Blue Backpack for
-                                                    the Young - S</a> </h3>
+                                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a> </h3>
                                             <div class="ratings-container">
                                                 <div class="product-ratings">
                                                     <span class="ratings" style="width:100%"></span>
@@ -282,64 +270,13 @@
                                             </div>
                                             <!-- End .product-container -->
                                             <div class="price-box">
-                                                <span class="product-price">$49.00</span>
+                                                <span class="product-price">${{ product.price }}</span>
                                             </div>
                                             <!-- End .price-box -->
                                         </div>
                                         <!-- End .product-details -->
                                     </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="static/images/products/small/product-5.jpg" width="75" height="75" alt="product" />
-                                                <img src="static/images/products/small/product-5-2.jpg" width="75" height="75" alt="product" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue
-                                                    Shoes</a> </h3>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span>
-                                                    <!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <!-- End .product-ratings -->
-                                            </div>
-                                            <!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div>
-                                            <!-- End .price-box -->
-                                        </div>
-                                        <!-- End .product-details -->
-                                    </div>
-                                    <div class="product-default left-details product-widget">
-                                        <figure>
-                                            <a href="product.html">
-                                                <img src="static/images/products/small/product-6.jpg" width="75" height="75" alt="product" />
-                                                <img src="static/images/products/small/product-6-2.jpg" width="75" height="75" alt="product" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-title"> <a href="product.html">Men Black Gentle
-                                                    Belt</a> </h3>
-                                            <div class="ratings-container">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width:100%"></span>
-                                                    <!-- End .ratings -->
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <!-- End .product-ratings -->
-                                            </div>
-                                            <!-- End .product-container -->
-                                            <div class="price-box">
-                                                <span class="product-price">$49.00</span>
-                                            </div>
-                                            <!-- End .price-box -->
-                                        </div>
-                                        <!-- End .product-details -->
-                                    </div>
+                                    {% endfor %}
                                 </div>
                                 <!-- End .featured-col -->
 

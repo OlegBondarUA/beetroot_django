@@ -69,11 +69,13 @@
                         <div class="toolbox-item toolbox-show">
                             <label>Show:</label>
                             <div class="select-custom">
-                                <select name="count" class="form-control">
-                                    <option value="12">12</option>
-                                    <option value="24">24</option>
-                                    <option value="36">36</option>
-                                </select>
+                                <form method="get" id="paginate-by-form">
+                                    <select id="paginate-by-form-select" name="count" class="form-control" onchange="changePaginationValue(value)">
+                                        <option value="12">12</option>
+                                        <option value="24">24</option>
+                                        <option value="36">36</option>
+                                    </select>
+                                </form>
                             </div>
                             <!-- End .select-custom -->
                         </div>
@@ -210,9 +212,9 @@
                         <div class="collapse show" id="widget-body-4">
                             <div class="widget-body pb-0">
                                 <ul class="config-swatch-list">
-                                    {% for product in products %}
+                                    {% for color in colors %}
                                     <li class="active">
-                                        <a href="{{request.path}}?color={{ product.color.name }}" style="background-color: {{ product.color.name }};"></a>
+                                        <a href="{{request.path}}?color={{ color.name }}" style="background-color: {{ color.name }};"></a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -241,6 +243,23 @@
                         <!-- End .collapse -->
                     </div>
                     <!-- End .widget -->
+                    <div class="widget widget-size">
+                        <h3 class="widget-title">
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-10">Brands</a>
+                        </h3>
+
+                        <div class="collapse show" id="widget-body-10">
+                            <div class="widget-body pb-0">
+                                <ul class="config-size-list">
+                                    {% for brand in brands %}
+                                    <li class="active"><a href="{{request.path}}?brand={{ brand.name }}">{{ brand.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- End .widget-body -->
+                        </div>
+                        <!-- End .collapse -->
+                    </div>
 
                     <div class="widget widget-featured">
                         <h3 class="widget-title">Featured</h3>

@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     # third party
     'django_summernote',
     'debug_toolbar',
+    'widget_tweaks',
     # my apps
     'shop',
+    'website',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.categories_menu',
+                'shop.context_processors.featured_products',
             ],
             'libraries':{
                 'percent': 'shop.templatetags.percent',

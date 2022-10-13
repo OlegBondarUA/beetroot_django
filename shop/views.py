@@ -10,7 +10,6 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context |= {
-            'featured_products': selectors.random_products_selector(),
             'new_arrivals': selectors.new_arrivals_products_selector(),
             'best_price': selectors.best_price_products_selector(),
             'top_products': selectors.top_products_selector(),
@@ -26,6 +25,8 @@ class CatalogueView(ListView):
     paginate_by = 12
 
     def get(self, request, *args, **kwargs):
+        if page_by := self.request.GET.get('count'):
+            self.paginate_by = page_by
         self.size = Size.objects.get(name=self.request.GET['size']) \
             if self.request.GET.get('size') else None
         self.color = Color.objects.get(name=self.request.GET['color']) \
@@ -43,7 +44,7 @@ class CatalogueView(ListView):
 
         return Product.objects.prefetch_related(
             'images', 'categories'
-        ).filter(**_filter)
+        ).filter(**_filter).order_by('id')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,6 +53,8 @@ class CatalogueView(ListView):
         aggregated_price_data = selectors.aggregated_price_data()
         context |= {
             'sizes': selectors.products_sizes_selector(product_ids),
+            'colors': selectors.products_colors_selector(product_ids),
+            'brands': selectors.products_brands_selector(product_ids),
             'max_price': aggregated_price_data['max_price'],
             'average_price': aggregated_price_data['avg_price'],
             'min_price': aggregated_price_data['min_price'],
@@ -69,18 +72,9 @@ class ProductView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context |= {
-            'featured_products': selectors.random_products_selector(),
             'new_arrivals': selectors.new_arrivals_products_selector(),
             'best_price': selectors.best_price_products_selector(),
             'top_products': selectors.top_products_selector(),
             'related_products': selectors.related_products_selector(self.object),
         }
         return context
-
-
-class ContactView(TemplateView):
-    template_name = 'contact.html'
-
-
-class InfoView(TemplateView):
-    template_name = 'element-counters.html'

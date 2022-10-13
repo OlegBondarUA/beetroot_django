@@ -2,7 +2,7 @@ from random import sample
 
 from django.db.models import Count, F, QuerySet, Avg, Max, Min
 
-from .models import Category, Product, Size
+from .models import Brand, Color, Category, Product, Size
 
 
 def random_products_selector(products_number: int = 4) -> QuerySet[Product]:
@@ -55,6 +55,18 @@ def aggregated_price_data() -> dict[str, str]:
 
 def products_sizes_selector(product_ids: list[int]) -> QuerySet[Size]:
     return Size.objects.filter(
+        products__id__in=product_ids
+    ).distinct().order_by('name')
+
+
+def products_colors_selector(product_ids: list[int]) -> QuerySet[Color]:
+    return Color.objects.filter(
+        products__id__in=product_ids
+    ).distinct().order_by('name')
+
+
+def products_brands_selector(product_ids: list[int]) -> QuerySet[Color]:
+    return Brand.objects.filter(
         products__id__in=product_ids
     ).distinct().order_by('name')
 

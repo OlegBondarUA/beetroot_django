@@ -24,6 +24,7 @@ class Size(models.Model):
 
 class Color(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    hex_code = models.CharField(max_length=7, default='')
 
     def __str__(self):
         return self.name
@@ -50,8 +51,10 @@ class Image(models.Model):
 class Product(models.Model):
     base_url = models.URLField(max_length=512)
     title = models.CharField(max_length=255)
+    title_ua = models.CharField(max_length=255, default='')
     slug = models.SlugField(max_length=255, unique=True)
     description = models.CharField(max_length=5000, default='')
+    description_ua = models.CharField(max_length=5000, default='')
     price = models.DecimalField(
         max_digits=10, decimal_places=2,
         blank=True, null=True

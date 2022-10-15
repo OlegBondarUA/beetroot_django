@@ -74,7 +74,20 @@
 				</div>
 			</div>
 		</div>
+		{% if messages %}
+		{% for message in messages %}
+		{% if message.tags == 'success' %}
+		<div class="alert alert-primary" role="alert">
+			<p class="w-100 text-justify text-center">{{ message }}</p>
+		</div>
+		{% else %}
+		<div class="alert alert-danger" role="alert">
+			<p class="w-100 text-justify text-center">{{ message }}</p>
+		</div>
+		{% endif %}
 
+		{% endfor %}
+		{% endif %}
 		<div class="row">
 			<div class="col-lg-6">
 				<h2 class="mt-6 mb-2">Send Us a Message</h2>
@@ -90,7 +103,7 @@
 					<div class="form-group">
 						<label class="mb-1" for="contact-email">Your E-mail
 							<span class="required">*</span></label>
-						{% render_field form.email type="email" class="form-control" placeholder="Your E-mail" id="contact-email" %}
+						{% render_field form.email type="text" class="form-control" placeholder="Your E-mail" id="contact-email" %}
 					</div>
 
 					<div class="form-group">

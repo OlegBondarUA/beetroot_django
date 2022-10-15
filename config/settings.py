@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -36,8 +36,6 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,12 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third party
+    'jazzmin',
     'django_summernote',
     'debug_toolbar',
     'widget_tweaks',
+    'easy_thumbnails',
     # my apps
     'shop',
     'website',
+
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.categories_menu',
                 'shop.context_processors.featured_products',
+                'shop.context_processors.get_subscribe_email',
             ],
             'libraries':{
                 'percent': 'shop.templatetags.percent',
@@ -152,3 +155,41 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime}] {levelname} {module} {thread:d} {lineno} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'logit': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'loggs/logit.log',
+            'maxBytes': 15728640,
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'logit': {
+            'handlers': ['logit'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (84, 84), 'crop': True},
+        'medium': {'size': (220, 220), 'crop': True},
+    },
+}

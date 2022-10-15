@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block main %}
 {% load percent %}
+{% load thumbnail %}
 <main class="main">
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -43,7 +44,7 @@
                     <div class="prod-thumbnail owl-dots">
                         {% for image in product.images.all %}
                         <div class="owl-dot">
-                            <img src="{{ image.image.url }}" width="110" height="110" alt="{{ product.title}} thumbnail" />
+                            <img src="{{ image.image|thumbnail_url:'avatar' }}" width="110" height="110" alt="{{ product.title}} thumbnail" />
                         </div>
                         {% endfor %}
                     </div>
@@ -371,9 +372,9 @@
                 <div class="product-default">
                     <figure>
                         <a href="{% url 'product' product.slug %}">
-                            <img src="{{ product.images.first.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            <img src="{{ product.images.first.image|thumbnail_url:'medium' }}" width="220" height="220" alt="{{ product.title }}">
                             {% if product.images.all.1 %}
-                            <img src="{{ product.images.all.1.image.url }}" width="220" height="220" alt="{{ product.title }}">
+                            <img src="{{ product.images.all.1.image|thumbnail_url:'medium' }}" width="220" height="220" alt="{{ product.title }}">
                             {% endif %}
                         </a>
                         {% if product.old_price %}
@@ -434,9 +435,9 @@
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{% url 'product' product.slug %}">
-                                <img src="{{ product.images.all.0.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.0.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% if product.images.all.1 %}
-                                <img src="{{ product.images.all.1.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.1.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% endif %}
                             </a>
                         </figure>
@@ -465,9 +466,9 @@
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{% url 'product' product.slug %}">
-                                <img src="{{ product.images.all.0.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.0.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% if product.images.all.1 %}
-                                <img src="{{ product.images.all.1.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.1.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% endif %}
                             </a>
                         </figure>
@@ -498,9 +499,9 @@
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{% url 'product' product.slug %}">
-                                <img src="{{ product.images.all.0.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.0.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% if product.images.all.1 %}
-                                <img src="{{ product.images.all.1.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.1.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% endif %}
                             </a>
                         </figure>
@@ -535,9 +536,9 @@
                     <div class="product-default left-details product-widget">
                         <figure>
                             <a href="{% url 'product' product.slug %}">
-                                <img src="{{ product.images.all.0.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.0.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% if product.images.all.1 %}
-                                <img src="{{ product.images.all.1.image.url }}" width="84" height="84" alt="product">
+                                <img src="{{ product.images.all.1.image|thumbnail_url:'avatar' }}" width="84" height="84" alt="product">
                                 {% endif %}
                             </a>
                         </figure>

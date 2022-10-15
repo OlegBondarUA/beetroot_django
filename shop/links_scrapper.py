@@ -1,3 +1,4 @@
+import logging
 from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
 from queue import Queue
@@ -10,11 +11,13 @@ TIME_OUT = 10
 
 LOCK = Lock()
 
+logger = logging.getLogger('logit')
+
 
 def links_worker(queue: Queue):
     while True:
         url = queue.get()
-        print('[WORKING ON]', url)
+        logger.debug(f'[WORKING ON] {url}')
         try:
             with requests.Session() as session:
                 response = session.get(
@@ -22,10 +25,10 @@ def links_worker(queue: Queue):
                     allow_redirects=True,
                     timeout=TIME_OUT
                 )
-                print(response.status_code)
+                logger.debug(response.status_code)
 
                 if response.status_code == 404:
-                    print('Page not found', url)
+                    logger.warning(f'Page not found {url}')
                     break
 
                 assert response.status_code in (200, 301, 302), 'Bad response'
@@ -39,7 +42,6 @@ def links_worker(queue: Queue):
             with LOCK:
                 with open('links.txt', 'a') as file:
                     file.write(links)
-                    print('WRITE TO FILE')
 
         except (
             requests.Timeout,
@@ -49,7 +51,7 @@ def links_worker(queue: Queue):
             requests.ConnectTimeout,
             AssertionError
         ) as error:
-            print('An error happen', error)
+            logger.error(f'An error happen {error}')
             queue.put(url)
 
         if queue.qsize() == 0:

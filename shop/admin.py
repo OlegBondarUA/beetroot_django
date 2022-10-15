@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django_summernote.admin import SummernoteModelAdmin
 
+from . actions import translate_product
 from . models import Brand, Category, Color, Product, Image, Size
 
 
@@ -19,7 +20,8 @@ class ImageInlineAdmin(admin.TabularInline):
 
 
 class ProductAdmin(SummernoteModelAdmin):
-    summernote_fields = ('description',)
+    actions = (translate_product,)
+    summernote_fields = ('description', 'description_ua')
     inlines = (ImageInlineAdmin,)
     list_display = ('title', 'price', 'old_price', 'availability')
     prepopulated_fields = {'slug': ('title',)}
@@ -30,9 +32,10 @@ class ProductAdmin(SummernoteModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'base_url',
-                ('title', 'slug'),
+                'base_url', 'slug',
+                ('title', 'title_ua'),
                 ('description',),
+                ('description_ua',),
                 ('price', 'old_price', 'availability'),
                 ('categories', 'sizes'),
                 ('color', 'brand'),
@@ -67,7 +70,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 class ColorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'total_products')
+    list_display = ('name', 'hex_code', 'total_products')
     search_fields = ('name',)
 
     def get_queryset(self, request):

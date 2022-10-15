@@ -206,16 +206,22 @@
 
                     <div class="widget widget-color">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-4">Color</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-4">Colors</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-4">
                             <div class="widget-body pb-0">
                                 <ul class="config-swatch-list">
                                     {% for color in colors %}
+                                    {% if color.hex_code %}
                                     <li class="active">
-                                        <a href="{{request.path}}?color={{ color.name }}" style="background-color: {{ color.name }};"></a>
+                                        <a href="{{request.path}}?color={{ color.name }}" style="background-color: {{ color.hex_code }};"></a>
                                     </li>
+                                    {% else %}
+                                    <li>
+                                        <a href="{{request.path}}?color={{ color.name }}">{{ color.name }}</a>
+                                    </li>
+                                    {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>

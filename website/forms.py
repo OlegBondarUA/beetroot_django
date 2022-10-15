@@ -25,3 +25,7 @@ class ContactForm(forms.ModelForm):
                 }
             )
         }
+
+
+class SubscribeForm(forms.Form):
+    email = forms.EmailField(label='Email address', max_length=100)

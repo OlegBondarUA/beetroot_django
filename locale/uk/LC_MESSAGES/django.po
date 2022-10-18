@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-18 20:38+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: config/settings.py:147
+msgid "English"
+msgstr "Англійська"
+
+#: config/settings.py:148
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: templates/header.html:8
+msgid "FREE Returns. Standard Shipping Orders $99+"
+msgstr "Безкоштовне повернення. Стандартні відправлення замовлень від $99+"
+
+#: templates/header.html:18
+msgid "Log In"
+msgstr "Залогінитись"
+
+#: templates/header.html:59
+msgid "Search..."
+msgstr "Пошук..."
+
+#: templates/header.html:95
+msgid "Shopping Cart"
+msgstr "Покупка"
+
+#: templates/header.html:153
+msgid "Home"
+msgstr "Додому"
+
+#: templates/header.html:156
+msgid "Categories"
+msgstr "Категорії"
+
+#: templates/header.html:160
+msgid "BEST PRICES"
+msgstr "НАЙКРАЩІ ЦІНИ"
+
+#: templates/header.html:172
+msgid "FRESHEST"
+msgstr "НАЙСВІЖІШІ"
+
+#: templates/header.html:203
+msgid "Blog"
+msgstr "Блог"
+
+#: templates/header.html:205
+msgid "Posts"
+msgstr "Публікації"
+
+#: templates/header.html:209
+msgid "Information"
+msgstr "Інформація"
+
+#: templates/header.html:212
+msgid "Contact Us"
+msgstr "Контактуй з нами"
+
+#: templates/index.html:52 templates/index.html:235 templates/product.html:233
+msgid "Featured Products"
+msgstr "Рекомендовані товари"
+
+#: templates/index.html:67 templates/index.html:129 templates/product.html:180
+msgid "HOT"
+msgstr "Гаряче"
+
+#: templates/index.html:104
+msgid "New Arrivals"
+msgstr "Нові надходження"
+
+#: templates/index.html:161
+msgid "ADD TO CART"
+msgstr "ДОДАТИ ДО ПОКУПОК"
+
+#: templates/index.html:171
+#, fuzzy
+#| msgid "Categories"
+msgid "Browse Our Categories"
+msgstr "Категорії"
+
+#: templates/index.html:268 templates/product.html:266
+msgid "Best Selling Products"
+msgstr "Найбільш Продавані Товари"
+
+#: templates/index.html:308 templates/product.html:305
+msgid "Latest Products"
+msgstr "Останні Надходження"
+
+#: templates/index.html:348 templates/product.html:347
+msgid "Top Rated Products"
+msgstr "Товари з Найвищим Рейтингом"
+
+#: templates/product.html:82
+msgid "CATEGORIES:"
+msgstr "КАТЕГОРІЇ:"
+
+#: templates/product.html:142
+msgid "Description"
+msgstr "Опис товару"
+
+#: templates/product.html:166
+#, fuzzy
+#| msgid "Featured Products"
+msgid "Related Products"
+msgstr "Рекомендовані товари"

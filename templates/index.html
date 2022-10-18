@@ -2,6 +2,7 @@
 {% block main %}
 {% load static %}
 {% load percent %}
+{% load i18n %}
 <main class="main">
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{
         'loop': false
@@ -48,7 +49,7 @@
 
     <section class="featured-products-section">
         <div class="container">
-            <h2 class="section-title heading-border ls-20 border-0">Featured Products</h2>
+            <h2 class="section-title heading-border ls-20 border-0">{% trans "Featured Products" %}</h2>
 
             <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center" data-owl-options="{
                 'dots': false,
@@ -63,19 +64,27 @@
                         </a>
                         {% if product.old_price %}
                             <div class="label-group">
-                                <div class="product-label label-hot">HOT</div>
+                                <div class="product-label label-hot">{% trans "HOT" %}</div>
                                 <div class="product-label label-sale">-{% discount_rate product.old_price product.price %}%</div>
                             </div>
                         {% endif %}
                     </figure>
                     <div class="product-details">
                         <div class="category-list">
-                            {% for category in product.categories.all %}
-                            <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>
+                            {% for category in product.categories.all.distinct %}
+                                {% if request.LANGUAGE_CODE == 'uk' %}
+                                <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name_ua }} </a>
+                                {% else %}
+                                <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name }} </a>
+                                {% endif %}
                             {% endfor %}
                         </div>
                         <h3 class="product-title">
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a>
+                            {% else %}
                             <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
+                            {% endif %}
                         </h3>
                         <!-- End .product-container -->
                         <div class="price-box">
@@ -92,7 +101,7 @@
 
     <section class="new-products-section">
         <div class="container">
-            <h2 class="section-title heading-border ls-20 border-0">New Arrivals</h2>
+            <h2 class="section-title heading-border ls-20 border-0">{% trans "New Arrivals" %}</h2>
 
             <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center mb-2" data-owl-options="{
                 'dots': false,
@@ -117,7 +126,7 @@
                         </a>
                         {% if product.old_price %}
                             <div class="label-group">
-                                <div class="product-label label-hot">HOT</div>
+                                <div class="product-label label-hot">{% trans "HOT" %}</div>
                                 <div class="product-label label-sale">-{% discount_rate product.old_price product.price %}%</div>
                             </div>
                         {% endif %}
@@ -125,11 +134,19 @@
                     <div class="product-details">
                         <div class="category-list">
                             {% for category in product.categories.all %}
-                            <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name}} </a>
+                                {% if request.LANGUAGE_CODE == 'uk' %}
+                                <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name_ua }} </a>
+                                {% else %}
+                                <a href="{% url 'catalogue' category.slug %}" class="product-category">{{ category.name }} </a>
+                                {% endif %}
                             {% endfor %}
                         </div>
                         <h3 class="product-title">
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a>
+                            {% else %}
                             <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
+                            {% endif %}
                         </h3>
                         <!-- End .product-container -->
                         <div class="price-box">
@@ -141,7 +158,7 @@
                             <a href="javascript:void(0)" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
                             <a href="javascript:void(0)" class="btn-icon btn-add-cart product-type-simple"><i
-                                    class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                    class="icon-shopping-cart"></i><span>{% trans "ADD TO CART" %}</span></a>
                             <a href="javascript:void(0)" class="btn-quickview" title="Quick View"><i
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -151,7 +168,7 @@
                 {% endfor %}
             </div>
             <h2 class="section-title categories-section-title heading-border border-0 ls-0 appear-animate" data-animation-delay="100" data-animation-name="fadeInUpShorter">
-                Browse Our Categories
+                {% trans "Browse Our Categories" %}
             </h2>
             <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
                 {% for category in search_categories %}
@@ -162,7 +179,11 @@
                             <img src="{{ category.image.url }}" alt="category" style="height: 200px; object-fit: cover;" />
                         </figure>
                         <div class="category-content">
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <h3>{{ category.name_ua }}</h3>
+                            {% else %}
                             <h3>{{ category.name }}</h3>
+                            {% endif %}
                             <span><mark class="count">{{ category.products_count }}</mark> products</span>
                         </div>
                     </a>
@@ -198,12 +219,12 @@
 
             <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
             'margin': 0}">
-                <img src="static/images/brands/brand1.png" width="130" height="56" alt="brand">
-                <img src="static/images/brands/brand2.png" width="130" height="56" alt="brand">
-                <img src="static/images/brands/brand3.png" width="130" height="56" alt="brand">
-                <img src="static/images/brands/brand4.png" width="130" height="56" alt="brand">
-                <img src="static/images/brands/brand5.png" width="130" height="56" alt="brand">
-                <img src="static/images/brands/brand6.png" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand1.png' %}" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand2.png' %}" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand3.png' %}" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand4.png' %}" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand5.png' %}" width="130" height="56" alt="brand">
+                <img src="{% static 'images/brands/brand6.png' %}" width="130" height="56" alt="brand">
             </div>
             <!-- End .brands-slider -->
 
@@ -211,7 +232,7 @@
 
             <div class="product-widgets-container row pb-2">
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
-                    <h4 class="section-sub-title">Featured Products</h4>
+                    <h4 class="section-sub-title">{% trans "Featured Products" %}</h4>
                     {% for product in featured_products|slice:":3" %}
                     <div class="product-default left-details product-widget">
                         <figure>
@@ -224,9 +245,11 @@
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
-                            </h3>
-
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a></h3>
+                            {% else %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a></h3>
+                            {% endif %}
                             <div class="ratings-container">
                             </div>
                             <!-- End .product-container -->
@@ -242,7 +265,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                    <h4 class="section-sub-title">Best Selling Products</h4>
+                    <h4 class="section-sub-title">{% trans "Best Selling Products" %}</h4>
                     {% for product in best_price %}
                     <div class="product-default left-details product-widget">
                         <figure>
@@ -255,9 +278,15 @@
                         </figure>
 
                         <div class="product-details">
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <h3 class="product-title">
+                                <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a>
+                            </h3>
+                            {% else %}
                             <h3 class="product-title">
                                 <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
                             </h3>
+                            {% endif %}
 
                             <div class="ratings-container">
                                 <!-- End .product-ratings -->
@@ -276,7 +305,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
-                    <h4 class="section-sub-title">Latest Products</h4>
+                    <h4 class="section-sub-title">{% trans "Latest Products" %}</h4>
                     {% for product in new_arrivals|slice:":3" %}
                     <div class="product-default left-details product-widget">
                         <figure>
@@ -289,8 +318,11 @@
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
-                            </h3>
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a></h3>
+                            {% else %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a></h3>
+                            {% endif %}
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
@@ -313,7 +345,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="1100">
-                    <h4 class="section-sub-title">Top Rated Products</h4>
+                    <h4 class="section-sub-title">{% trans "Top Rated Products" %}</h4>
                     {% for product in top_products %}
                     <div class="product-default left-details product-widget">
                         <figure>
@@ -326,9 +358,11 @@
                         </figure>
 
                         <div class="product-details">
-                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a>
-                            </h3>
-
+                            {% if request.LANGUAGE_CODE == 'uk' %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a></h3>
+                            {% else %}
+                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a></h3>
+                            {% endif %}
                             <div class="ratings-container">
                                 <div class="product-ratings">
                                     <span class="ratings" style="width:100%"></span>

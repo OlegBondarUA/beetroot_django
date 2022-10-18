@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 from django_summernote.admin import SummernoteModelAdmin
 
-from . actions import translate_product
+from . actions import translate_product, translate_name
 from . models import Brand, Category, Color, Product, Image, Size
 
 
@@ -23,7 +23,7 @@ class ProductAdmin(SummernoteModelAdmin):
     actions = (translate_product,)
     summernote_fields = ('description', 'description_ua')
     inlines = (ImageInlineAdmin,)
-    list_display = ('title', 'price', 'old_price', 'availability')
+    list_display = ('title', 'translated', 'price', 'old_price', 'availability')
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title', 'description')
     list_filter = ('brand', 'color')
@@ -42,6 +42,12 @@ class ProductAdmin(SummernoteModelAdmin):
             )
         }),
     )
+
+    @staticmethod
+    def translated(obj):
+        if obj.title_ua and obj.description_ua:
+            return mark_safe('<img src="/static/admin/img/icon-yes.svg" alt=True>')
+        return mark_safe('<img src="/static/admin/img/icon-no.svg" alt="False">')
 
 
 class ImageAdmin(admin.ModelAdmin):
@@ -70,8 +76,9 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 class ColorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'hex_code', 'total_products')
-    search_fields = ('name',)
+    actions = (translate_name,)
+    list_display = ('name', 'name_ua', 'hex_code', 'total_products')
+    search_fields = ('name', 'name_ua')
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -85,7 +92,8 @@ class ColorAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'picture', 'total_products')
+    actions = (translate_name,)
+    list_display = ('name', 'name_ua', 'picture', 'total_products')
     search_fields = ('name',)
 
     def get_queryset(self, request):

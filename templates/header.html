@@ -1,9 +1,11 @@
 {% load static %}
+{% load i18n %}
+{% load i18n_switcher %}
 <header class="header">
     <div class="header-top">
         <div class="container">
             <div class="header-left d-none d-sm-block">
-                <p class="top-message text-uppercase">FREE Returns. Standard Shipping Orders $99+</p>
+                <p class="top-message text-uppercase">{% trans "FREE Returns. Standard Shipping Orders $99+" %}</p>
             </div>
             <!-- End .header-left -->
 
@@ -13,25 +15,21 @@
                     <div class="header-menu">
                         <ul>
                             <li><a href="javascript:void(0)">Cart</a></li>
-                            <li><a href="javascript:void(0)" class="login-link">Log In</a></li>
+                            <li><a href="javascript:void(0)" class="login-link">{% trans "Log In" %}</a></li>
                         </ul>
                     </div>
                     <!-- End .header-menu -->
                 </div>
                 <!-- End .header-dropown -->
-
                 <span class="separator"></span>
 
-                <div class="header-dropdown">
-                    <a href="javascript:void(0)"><i class="flag-us flag"></i>ENG</a>
-                    <div class="header-menu">
-                        <ul>
-                            <li><a href="javascript:void(0)"><i class="flag-us flag mr-2"></i>ENG</a>
-                            </li>
-                            <li><a href="javascript:void(0)"><i class="flag-ua flag mr-2"></i>UKR</a></li>
-                        </ul>
-                    </div>
-                    <!-- End .header-menu -->
+                <div class="header-lang">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if request.LANGUAGE_CODE == 'uk' %}
+                    <a href="{{ request|switch_i18n:'default' }}" class="header-lang__lang en active"><i class="flag-us flag mr-2"></i>English</a>
+                    {% else %}
+                    <a href="{{ request|switch_i18n:'uk' }}" class="header-lang__lang uk active"><i class="flag-ua flag mr-2"></i>Українська</a>
+                    {% endif %}
                 </div>
                 <!-- End .header-dropown -->
                 <span class="separator"></span>
@@ -56,13 +54,17 @@
             <div class="header-right w-lg-max">
                 <div class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
                     <a href="javascript:void(0)" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                    <form action="javascript:void(0)" method="get">
+                    <form action="{% url 'search' %}">
                         <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
+                            <input type="search" class="form-control" name="q" id="q" placeholder="{% trans 'Search...' %}" required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     {% for category in search_categories %}
-                                    <option value="">{{ category.name }}</option>
+                                        {% if request.LANGUAGE_CODE == 'uk' %}
+                                        <option value="{{ category.name_ua }}">{{ category.name_ua }}</option>
+                                        {% else %}
+                                        <option value="{{ category.name }}">{{ category.name }}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -90,7 +92,7 @@
                         <a href="javascript:void(0)" title="Close (Esc)" class="btn-close">×</a>
 
                         <div class="dropdownmenu-wrapper custom-scrollbar">
-                            <div class="dropdown-cart-header">Shopping Cart</div>
+                            <div class="dropdown-cart-header">{% trans "Shopping Cart" %}</div>
                             <!-- End .dropdown-cart-header -->
                             <div class="dropdown-cart-products">
 <!--                                Create here info for customer cart -->
@@ -148,25 +150,33 @@
             <nav class="main-nav w-100">
                 <ul class="menu">
                     <li>
-                        <a href="{% url 'index' %}">Home</a>
+                        <a href="{% url 'index' %}">{% trans "Home" %}</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">Categories</a>
+                        <a href="javascript:void(0)">{% trans "Categories" %}</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <a href="javascript:void(0)" class="nolink">BEST PRICES</a>
+                                    <a href="javascript:void(0)" class="nolink">{% trans "BEST PRICES" %}</a>
                                     {% for category in search_categories|slice:":17" %}
                                     <ul class="submenu">
+                                        {% if request.LANGUAGE_CODE == 'uk' %}
+                                        <li><a href="{% url 'catalogue' category.slug %}">{{ category.name_ua }}</a></li>
+                                        {% else %}
                                         <li><a href="{% url 'catalogue' category.slug %}">{{ category.name }}</a></li>
+                                        {% endif %}
                                     </ul>
                                     {% endfor %}
                                 </div>
                                 <div class="col-lg-4">
-                                    <a href="javascript:void(0)" class="nolink">FRESHEST</a>
+                                    <a href="javascript:void(0)" class="nolink">{% trans "FRESHEST" %}</a>
                                     {% for category in search_categories|slice:"17:" %}
                                     <ul class="submenu">
-                                        <li><a href="{% url 'catalogue' category.slug %}">{{ category.name }}</a></li>
+                                        {% if request.LANGUAGE_CODE == 'uk' %}
+                                        <li><a href="{% url 'catalogue' category.slug %}">{{ category.name_ua }}</a></li>
+                                        {% else %}
+                                         <li><a href="{% url 'catalogue' category.slug %}">{{ category.name }}</a></li>
+                                        {% endif %}
                                     </ul>
                                     {% endfor %}
                                 </div>
@@ -190,16 +200,16 @@
                         <!-- End .megamenu -->
                     </li>
                     <li>
-                        <a href="javascript:void(0)">Blog</a>
+                        <a href="javascript:void(0)">{% trans "Blog" %}</a>
                         <ul class="custom-scrollbar">
-                            <li><a href="javascript:void(0)">Posts</a></li>
+                            <li><a href="javascript:void(0)">{% trans "Posts" %}</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{% url 'info' %}">Information</a>
+                        <a href="{% url 'info' %}">{% trans "Information" %}</a>
                     </li>
                     <li class="float-right">
-                        <a href="{% url 'contact' %}">Contact Us</a>
+                        <a href="{% url 'contact' %}">{% trans "Contact Us" %}</a>
                     </li>
                 </ul>
             </nav>

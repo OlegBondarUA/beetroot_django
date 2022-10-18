@@ -3,6 +3,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=35)
+    name_ua = models.CharField(max_length=50, default='')
     slug = models.SlugField(unique=True)
     image = models.ImageField(
         upload_to='category/images', blank=True, null=True
@@ -24,6 +25,7 @@ class Size(models.Model):
 
 class Color(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    name_ua = models.CharField(max_length=50, default='')
     hex_code = models.CharField(max_length=7, default='')
 
     def __str__(self):
@@ -51,7 +53,7 @@ class Image(models.Model):
 class Product(models.Model):
     base_url = models.URLField(max_length=512)
     title = models.CharField(max_length=255)
-    title_ua = models.CharField(max_length=255, default='')
+    title_ua = models.CharField(max_length=355, default='')
     slug = models.SlugField(max_length=255, unique=True)
     description = models.CharField(max_length=5000, default='')
     description_ua = models.CharField(max_length=5000, default='')

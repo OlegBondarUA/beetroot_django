@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load percent %}
 {% block main %}
+{% load i18n %}
 {% load static %}
 <main class="main">
     <div class="category-banner-container bg-gray">
@@ -64,7 +65,11 @@
                         <!-- End .toolbox-item -->
                     </div>
                     <!-- End .toolbox-left -->
-
+                    {% if search_query %}
+                    <div class="toolbox-center">
+                        <h4>{{ search_query }}  {% trans "search results:"%}({{search_result_count}})</h4>
+                    </div>
+                    {% endif %}
                     <div class="toolbox-right">
                         <div class="toolbox-item toolbox-show">
                             <label>Show:</label>
@@ -107,12 +112,19 @@
                                 <div class="category-wrap">
                                     <div class="category-list">
                                         {% for category in product.categories.all %}
+                                        {% if request.LANGUAGE_CODE == 'uk' %}
+                                        <a href="{% url 'catalogue' category.slug %}" class="product-category">{{category.name_ua }} </a>
+                                        {% else %}
                                         <a href="{% url 'catalogue' category.slug %}" class="product-category">{{category.name }} </a>
+                                        {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
-
+                                {% if request.LANGUAGE_CODE == 'uk' %}
+                                <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a> </h3>
+                                {% else %}
                                 <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a> </h3>
+                                {% endif %}
                                 <!-- End .product-container -->
 
                                 <div class="price-box">
@@ -125,8 +137,9 @@
                                     <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
                                             class="icon-heart"></i></a>
                                     <a href="product.html" class="btn-icon btn-add-cart"><i
-                                            class="fa fa-arrow-right"></i><span>SELECT
-                                            OPTIONS</span></a>
+                                            class="fa fa-arrow-right"></i>
+                                        <span>{% trans "SELECT OPTIONS" %}</span>
+                                    </a>
                                     <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
@@ -161,19 +174,28 @@
                 <div class="sidebar-wrapper">
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-2">Categories</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-2">{% trans "Categories" %}</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-2">
                             <div class="widget-body">
                                 <ul class="cat-list">
                                     {% for category in search_categories %}
+                                    {% if request.LANGUAGE_CODE == 'uk' %}
+                                    <li>
+                                        <a href="{% url 'catalogue' category.slug %}">
+                                            {{ category.name_ua }}<span class="products-count">({{ category.products_count }})</span>
+                                            <span class="toggle"></span>
+                                        </a>
+                                    </li>
+                                    {% else %}
                                     <li>
                                         <a href="{% url 'catalogue' category.slug %}">
                                             {{ category.name }}<span class="products-count">({{ category.products_count }})</span>
                                             <span class="toggle"></span>
                                         </a>
                                     </li>
+                                    {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -184,7 +206,7 @@
                     <!-- End .widget -->
                     <div class="widget">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-3">Price</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-3">{% trans "Price" %}</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-3">
@@ -193,7 +215,7 @@
                                     <div class="price-slider-wrapper">
                                         <input type="range" id="price" name="price" min="{{ min_price }}" max="{{ max_price|floatformat:0}}" oninput="this.nextElementSibling.value = this.value">
                                         <output>{{ average_price|floatformat:0}}</output>
-                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                        <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
                                     </div>
                                     <!-- End .filter-price-action -->
                                 </form>
@@ -206,7 +228,7 @@
 
                     <div class="widget widget-color">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-4">Colors</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-4">{% trans "Colors" %}</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-4">
@@ -234,7 +256,7 @@
 
                     <div class="widget widget-size">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-5">Sizes</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-5">{% trans "Sizes" %}</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-5">
@@ -252,7 +274,7 @@
                     <!-- End .widget -->
                     <div class="widget widget-size">
                         <h3 class="widget-title">
-                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-10">Brands</a>
+                            <a data-toggle="collapse" href="javascript:void(0)" role="button" aria-expanded="true" aria-controls="widget-body-10">{% trans "Brands" %}</a>
                         </h3>
 
                         <div class="collapse show" id="widget-body-10">
@@ -269,7 +291,7 @@
                     </div>
 
                     <div class="widget widget-featured">
-                        <h3 class="widget-title">Featured</h3>
+                        <h3 class="widget-title">{% trans "Featured" %}</h3>
 
                         <div class="widget-body">
                             <div class="owl-carousel widget-featured-products">
@@ -285,7 +307,11 @@
                                             </a>
                                         </figure>
                                         <div class="product-details">
+                                            {% if request.LANGUAGE_CODE == 'uk' %}
+                                            <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title_ua }}</a> </h3>
+                                            {% else %}
                                             <h3 class="product-title"> <a href="{% url 'product' product.slug %}">{{ product.title }}</a> </h3>
+                                            {% endif %}
                                             <div class="ratings-container">
                                                 <div class="product-ratings">
                                                     <span class="ratings" style="width:100%"></span>

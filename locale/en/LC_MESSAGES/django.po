@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 20:38+0300\n"
+"POT-Creation-Date: 2022-10-20 18:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,42 @@ msgstr ""
 msgid "Ukrainian"
 msgstr ""
 
+#: templates/category.html:70
+msgid "search results:"
+msgstr ""
+
+#: templates/category.html:141
+msgid "SELECT OPTIONS"
+msgstr ""
+
+#: templates/category.html:177 templates/header.html:157
+msgid "Categories"
+msgstr ""
+
+#: templates/category.html:209
+msgid "Price"
+msgstr ""
+
+#: templates/category.html:218
+msgid "Filter"
+msgstr ""
+
+#: templates/category.html:231
+msgid "Colors"
+msgstr ""
+
+#: templates/category.html:259
+msgid "Sizes"
+msgstr ""
+
+#: templates/category.html:277
+msgid "Brands"
+msgstr ""
+
+#: templates/category.html:294
+msgid "Featured"
+msgstr ""
+
 #: templates/header.html:8
 msgid "FREE Returns. Standard Shipping Orders $99+"
 msgstr ""
@@ -38,39 +74,39 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: templates/header.html:95
+#: templates/header.html:62
+msgid "Search All"
+msgstr ""
+
+#: templates/header.html:96
 msgid "Shopping Cart"
 msgstr ""
 
-#: templates/header.html:153
+#: templates/header.html:154
 msgid "Home"
 msgstr ""
 
-#: templates/header.html:156
-msgid "Categories"
-msgstr ""
-
-#: templates/header.html:160
+#: templates/header.html:161
 msgid "BEST PRICES"
 msgstr ""
 
-#: templates/header.html:172
+#: templates/header.html:173
 msgid "FRESHEST"
 msgstr ""
 
-#: templates/header.html:203
+#: templates/header.html:204
 msgid "Blog"
 msgstr ""
 
-#: templates/header.html:205
+#: templates/header.html:206
 msgid "Posts"
 msgstr ""
 
-#: templates/header.html:209
+#: templates/header.html:210
 msgid "Information"
 msgstr ""
 
-#: templates/header.html:212
+#: templates/header.html:213
 msgid "Contact Us"
 msgstr ""
 

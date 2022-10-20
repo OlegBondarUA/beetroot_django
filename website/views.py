@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.views.generic import FormView, TemplateView, ListView
 from django.contrib import messages
 
@@ -45,32 +46,23 @@ class SearchView(ListView):
     def get(self, request, *args, **kwargs):
         self.search_query = self.request.GET.get('q')
         self.search_category = self.request.GET.get('cat')
-        if page_by := self.request.GET.get('count'):
-            self.paginate_by = page_by
-        self.size = Size.objects.get(name=self.request.GET['size']) \
-            if self.request.GET.get('size') else None
-        self.color = Color.objects.get(name=self.request.GET['color']) \
-            if self.request.GET.get('color') else None
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        if self.request.LANGUAGE_CODE == 'en-us':
+        _filter = {}
+        if self.search_category:
             _filter = {
-                'title__icontains': self.search_query
+                'categories__name': self.search_category
             }
-        else:
-            _filter = {
-                'title_ua__icontains': self.search_query
-            }
-
-        if self.size:
-            _filter['sizes__name'] = self.size.name
-        if self.color:
-            _filter['color__name'] = self.color.name
 
         return Product.objects.prefetch_related(
             'images', 'categories'
-        ).filter(**_filter).order_by('id')
+        ).annotate(
+            rank=self._create_search_rank()
+        ).filter(
+            rank__gte=0.3,
+            **_filter
+        ).order_by('-rank')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,6 +70,8 @@ class SearchView(ListView):
 
         aggregated_price_data = selectors.aggregated_price_data()
         context |= {
+            'search_query': self.search_query,
+            'search_result_count': self.get_queryset().count(),
             'sizes': selectors.products_sizes_selector(product_ids),
             'colors': selectors.products_colors_selector(product_ids),
             'brands': selectors.products_brands_selector(product_ids),
@@ -86,3 +80,25 @@ class SearchView(ListView):
             'min_price': aggregated_price_data['min_price'],
         }
         return context
+
+    def _create_search_rank(self) -> SearchRank:
+        if self.request.LANGUAGE_CODE == 'en-us':
+            vector = SearchVector('title', weight='A') \
+                     + SearchVector('description', weight='B') \
+                     + SearchVector('color__name', weight='A')
+
+            query = SearchQuery(self.search_query)
+            rank = SearchRank(
+                vector,
+                query,
+            )
+        else:
+            vector = SearchVector('title_ua', weight='A') \
+                     + SearchVector('description_ua', weight='B') \
+                     + SearchVector('color__name_ua', weight='A')
+            query = SearchQuery(self.search_query)
+            rank = SearchRank(
+                vector,
+                query,
+             )
+        return rank

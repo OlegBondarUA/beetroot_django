@@ -59,6 +59,7 @@
                             <input type="search" class="form-control" name="q" id="q" placeholder="{% trans 'Search...' %}" required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
+                                    <option value="">{% trans "Search All" %}</option>
                                     {% for category in search_categories %}
                                         {% if request.LANGUAGE_CODE == 'uk' %}
                                         <option value="{{ category.name_ua }}">{{ category.name_ua }}</option>

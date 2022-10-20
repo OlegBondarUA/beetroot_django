@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 20:38+0300\n"
+"POT-Creation-Date: 2022-10-20 18:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,44 @@ msgstr "Англійська"
 msgid "Ukrainian"
 msgstr "Українська"
 
+#: templates/category.html:70
+msgid "search results:"
+msgstr "результати пошуку"
+
+#: templates/category.html:141
+msgid "SELECT OPTIONS"
+msgstr "ОБРАТИ"
+
+#: templates/category.html:177 templates/header.html:157
+msgid "Categories"
+msgstr "Категорії"
+
+#: templates/category.html:209
+msgid "Price"
+msgstr "Ціна"
+
+#: templates/category.html:218
+msgid "Filter"
+msgstr "Фільтр"
+
+#: templates/category.html:231
+msgid "Colors"
+msgstr "Кольори"
+
+#: templates/category.html:259
+msgid "Sizes"
+msgstr "Розміри"
+
+#: templates/category.html:277
+msgid "Brands"
+msgstr "Бренди"
+
+#: templates/category.html:294
+#, fuzzy
+#| msgid "Featured Products"
+msgid "Featured"
+msgstr "Рекомендовані товари"
+
 #: templates/header.html:8
 msgid "FREE Returns. Standard Shipping Orders $99+"
 msgstr "Безкоштовне повернення. Стандартні відправлення замовлень від $99+"
@@ -41,39 +79,41 @@ msgstr "Залогінитись"
 msgid "Search..."
 msgstr "Пошук..."
 
-#: templates/header.html:95
+#: templates/header.html:62
+#, fuzzy
+#| msgid "Search..."
+msgid "Search All"
+msgstr "Пошук..."
+
+#: templates/header.html:96
 msgid "Shopping Cart"
 msgstr "Покупка"
 
-#: templates/header.html:153
+#: templates/header.html:154
 msgid "Home"
 msgstr "Додому"
 
-#: templates/header.html:156
-msgid "Categories"
-msgstr "Категорії"
-
-#: templates/header.html:160
+#: templates/header.html:161
 msgid "BEST PRICES"
 msgstr "НАЙКРАЩІ ЦІНИ"
 
-#: templates/header.html:172
+#: templates/header.html:173
 msgid "FRESHEST"
 msgstr "НАЙСВІЖІШІ"
 
-#: templates/header.html:203
+#: templates/header.html:204
 msgid "Blog"
 msgstr "Блог"
 
-#: templates/header.html:205
+#: templates/header.html:206
 msgid "Posts"
 msgstr "Публікації"
 
-#: templates/header.html:209
+#: templates/header.html:210
 msgid "Information"
 msgstr "Інформація"
 
-#: templates/header.html:212
+#: templates/header.html:213
 msgid "Contact Us"
 msgstr "Контактуй з нами"
 

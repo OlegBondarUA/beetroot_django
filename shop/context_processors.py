@@ -1,6 +1,3 @@
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-
 from .selectors import categories_selector, random_products_selector
 from website.forms import SubscribeForm
 

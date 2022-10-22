@@ -11,11 +11,11 @@
 
             <div class="header-right header-dropdowns ml-0 ml-sm-auto w-sm-100">
                 <div class="header-dropdown dropdown-expanded d-none d-lg-block">
-                    <a href="javascript:void(0)">Links</a>
                     <div class="header-menu">
                         <ul>
                             <li><a href="javascript:void(0)">Cart</a></li>
-                            <li><a href="javascript:void(0)" class="login-link">{% trans "Log In" %}</a></li>
+                            <li><a href="javascript:void(0)">{% trans "Log In" %}</a></li>
+                            <li><a href="{% url 'signup' %}">{% trans "Sign Up" %}</a></li>
                         </ul>
                     </div>
                     <!-- End .header-menu -->

@@ -1,9 +1,11 @@
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.views.generic import FormView, TemplateView, ListView
 from django.contrib import messages
+from django.urls import reverse
 
 from shop.models import Color, Product, Size
 from shop import selectors
+from utils.email import send_html_email
 from . forms import ContactForm
 from . models import Contact
 
@@ -16,6 +18,16 @@ class ContactView(FormView):
 
     def form_valid(self, form):
         Contact.objects.create(**form.cleaned_data)
+        to_email = form.cleaned_data.get('email')
+        send_html_email(
+            subject='Welcome to our website',
+            to_emails=[to_email],
+            context={
+                'name': form.cleaned_data.get('name'),
+                'link': self.request.build_absolute_uri(reverse('index')),
+            },
+            template_name='emails/email.html'
+        )
         messages.add_message(
             self.request, messages.SUCCESS,
             f"Thank you {form.cleaned_data.get('name').upper()}, "

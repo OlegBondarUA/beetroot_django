@@ -74,20 +74,6 @@
 				</div>
 			</div>
 		</div>
-		{% if messages %}
-		{% for message in messages %}
-		{% if message.tags == 'success' %}
-		<div class="alert alert-primary" role="alert">
-			<p class="w-100 text-justify text-center">{{ message }}</p>
-		</div>
-		{% else %}
-		<div class="alert alert-danger" role="alert">
-			<p class="w-100 text-justify text-center">{{ message }}</p>
-		</div>
-		{% endif %}
-
-		{% endfor %}
-		{% endif %}
 		<div class="row">
 			<div class="col-lg-6">
 				<h2 class="mt-6 mb-2">Send Us a Message</h2>

@@ -1,17 +1,25 @@
 {% if is_paginated %}
 <ul class="pagination toolbox-item">
    <li>
-        <a href="{{request.path}}?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+        <a href="{{request.path}}?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.size %}&size={{ request.GET.size }}{% endif %}{% if request.GET.color %}&color={{ request.GET.color }}{% endif %}">
         <i class="fa fa-angle-double-left"></i>
         </a>
     </li>
     {% for i in paginator.page_range %}
       {% if forloop.counter|add:5 > page_obj.number and forloop.counter < page_obj.number|add:5 %}
-        <li class="page-item"><a class="page-link" href="{{request.path}}?page={{i}}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
-      {% endif %}
+        {% if page_obj.number == i %}
+        <li class="page-item active">
+            <a class="page-link" href="{{request.path}}?page={{i}}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.size %}&size={{ request.GET.size }}{% endif %}{% if request.GET.color %}&color={{ request.GET.color }}{% endif %}">{{ i }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="{{request.path}}?page={{i}}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.size %}&size={{ request.GET.size }}{% endif %}{% if request.GET.color %}&color={{ request.GET.color }}{% endif %}">{{ i }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
     {% endfor %}
     <li>
-        <a href="{{request.path}}?page={{paginator.num_pages}}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+        <a href="{{request.path}}?page={{paginator.num_pages}}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.size %}&size={{ request.GET.size }}{% endif %}{% if request.GET.color %}&color={{ request.GET.color }}{% endif %}">
             <i class="fa fa-angle-double-right"></i>
         </a>
     </li>

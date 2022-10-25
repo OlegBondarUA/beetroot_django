@@ -2,7 +2,10 @@ import logging
 
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -41,8 +44,11 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
+        messages.add_message(
+            self.request, messages.WARNING,
+            f'Please send correct data! {form.error_messages}'
+        )
         logger.error(form.error_messages)
-        # TODO invalid message or redirect
         return super().form_invalid(form)
 
 
@@ -57,9 +63,37 @@ class ActivateView(TemplateView):
             logger.error(error)
             user = None
 
-        if user and account_activation_token.check_token(user, kwargs.get('token')):
+        if user is not None \
+                and account_activation_token.check_token(
+                user, kwargs.get('token')
+        ):
             user.is_active = True
             user.profile.email_confirmed = True
             user.save()
             login(self.request, user)
-        return super(ActivateView, self).get(request, *args, **kwargs)
+            return redirect('index')
+        return super().get(request, *args, **kwargs)
+
+
+class LoginView(FormView):
+    template_name = 'login.html'
+    model = User
+    form_class = AuthenticationForm
+    success_url = '/login/'
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+            return redirect('index')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(
+            self.request, messages.WARNING,
+            f'Please input correct data! {form.error_messages}'
+        )
+        logger.error(form.error_messages)
+        return super().form_invalid(form)

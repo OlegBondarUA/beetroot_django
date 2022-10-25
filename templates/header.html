@@ -13,8 +13,9 @@
                 <div class="header-dropdown dropdown-expanded d-none d-lg-block">
                     <div class="header-menu">
                         <ul>
+                            <li><a href="javascript:void(0)">{% if request.user.is_authenticated %}{{ user.username }}{% endif %}</a></li>
                             <li><a href="javascript:void(0)">Cart</a></li>
-                            <li><a href="javascript:void(0)">{% trans "Log In" %}</a></li>
+                            <li><a href="{% url 'login' %}">{% trans "Log In" %}</a></li>
                             <li><a href="{% url 'signup' %}">{% trans "Sign Up" %}</a></li>
                         </ul>
                     </div>
@@ -218,4 +219,18 @@
         <!-- End .container -->
     </div>
     <!-- End .header-bottom -->
+    {% if messages %}
+		{% for message in messages %}
+		{% if message.tags == 'success' %}
+		<div class="alert alert-primary" role="alert">
+			<p class="w-100 text-justify text-center">{{ message }}</p>
+		</div>
+		{% else %}
+		<div class="alert alert-danger" role="alert">
+			<p class="w-100 text-justify text-center">{{ message }}</p>
+		</div>
+		{% endif %}
+
+		{% endfor %}
+    {% endif %}
 </header>

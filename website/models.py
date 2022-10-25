@@ -8,3 +8,11 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Subscribe(models.Model):
+    email = models.EmailField()
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

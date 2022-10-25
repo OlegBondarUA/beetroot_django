@@ -1,9 +1,10 @@
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, TemplateView, ListView
 from django.contrib import messages
 from django.urls import reverse
 
-from shop.models import Color, Product, Size
+from shop.models import Product
 from shop import selectors
 from utils.email import send_html_email
 from . forms import ContactForm
@@ -43,7 +44,7 @@ class ContactView(FormView):
         return super().form_invalid(form)
 
 
-class InfoView(TemplateView):
+class InfoView(LoginRequiredMixin, TemplateView):
     template_name = 'element-counters.html'
 
 

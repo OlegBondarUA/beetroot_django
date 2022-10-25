@@ -27,5 +27,11 @@ class ContactForm(forms.ModelForm):
         }
 
 
-class SubscribeForm(forms.Form):
-    email = forms.EmailField(label='Email address', max_length=100)
+class SubscribeForm(forms.ModelForm):
+    email = forms.EmailField(
+        label='Email address', min_length=5, max_length=100, required=False
+    )
+
+    class Meta:
+        model = Contact
+        fields = ('email',)

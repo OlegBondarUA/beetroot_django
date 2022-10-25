@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+<div class="col-lg-3 col-sm-6">
+    <div class="widget widget-newsletter">
+        <h4 class="widget-title">Subscribe newsletter</h4>
+        <p>Get all the latest information on events, sales and offers. Sign up for newsletter:
+        </p>
+        <form action="{{ request.path }}" class="mb-0" method="get">
+            {% csrf_token %}
+            {% render_field subscribe_form.email type="email" class="form-control m-b-3" placeholder="Email address" %}
+            <input type="submit" class="btn btn-primary shadow-none" value="Subscribe">
+        </form>
+    </div>
+    <!-- End .widget -->
+</div>
